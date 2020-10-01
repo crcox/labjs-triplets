@@ -1,0 +1,709 @@
+{
+  "components": {
+    "2": {
+      "id": "2",
+      "type": "lab.flow.Loop",
+      "children": [
+        "18"
+      ],
+      "templateParameters": {
+        "columns": [
+          {
+            "name": "trialId",
+            "type": "string"
+          }
+        ],
+        "rows": [
+          [
+            "1"
+          ],
+          [
+            "2"
+          ],
+          [
+            "3"
+          ],
+          [
+            "4"
+          ],
+          [
+            "5"
+          ],
+          [
+            "6"
+          ],
+          [
+            "7"
+          ],
+          [
+            "8"
+          ],
+          [
+            "9"
+          ],
+          [
+            "10"
+          ],
+          [
+            "11"
+          ],
+          [
+            "12"
+          ],
+          [
+            "13"
+          ],
+          [
+            "14"
+          ],
+          [
+            "15"
+          ],
+          [
+            "16"
+          ],
+          [
+            "17"
+          ],
+          [
+            "18"
+          ],
+          [
+            "19"
+          ],
+          [
+            "20"
+          ],
+          [
+            "21"
+          ],
+          [
+            "22"
+          ],
+          [
+            "23"
+          ],
+          [
+            "24"
+          ],
+          [
+            "25"
+          ],
+          [
+            "26"
+          ],
+          [
+            "27"
+          ],
+          [
+            "28"
+          ],
+          [
+            "29"
+          ],
+          [
+            "30"
+          ],
+          [
+            "31"
+          ],
+          [
+            "32"
+          ],
+          [
+            "33"
+          ],
+          [
+            "34"
+          ],
+          [
+            "35"
+          ],
+          [
+            "36"
+          ],
+          [
+            "37"
+          ],
+          [
+            "38"
+          ],
+          [
+            "39"
+          ],
+          [
+            "40"
+          ],
+          [
+            "41"
+          ],
+          [
+            "42"
+          ],
+          [
+            "43"
+          ],
+          [
+            "44"
+          ],
+          [
+            "45"
+          ],
+          [
+            "46"
+          ],
+          [
+            "47"
+          ],
+          [
+            "48"
+          ],
+          [
+            "49"
+          ],
+          [
+            "50"
+          ],
+          [
+            "51"
+          ],
+          [
+            "52"
+          ],
+          [
+            "53"
+          ],
+          [
+            "54"
+          ],
+          [
+            "55"
+          ],
+          [
+            "56"
+          ],
+          [
+            "57"
+          ],
+          [
+            "58"
+          ],
+          [
+            "59"
+          ],
+          [
+            "60"
+          ],
+          [
+            "61"
+          ],
+          [
+            "62"
+          ],
+          [
+            "63"
+          ],
+          [
+            "64"
+          ],
+          [
+            "65"
+          ],
+          [
+            "66"
+          ],
+          [
+            "67"
+          ],
+          [
+            "68"
+          ],
+          [
+            "69"
+          ],
+          [
+            "70"
+          ],
+          [
+            "71"
+          ],
+          [
+            "72"
+          ],
+          [
+            "73"
+          ],
+          [
+            "74"
+          ],
+          [
+            "75"
+          ],
+          [
+            "76"
+          ],
+          [
+            "77"
+          ],
+          [
+            "78"
+          ],
+          [
+            "79"
+          ],
+          [
+            "80"
+          ],
+          [
+            "81"
+          ],
+          [
+            "82"
+          ],
+          [
+            "83"
+          ],
+          [
+            "84"
+          ],
+          [
+            "85"
+          ],
+          [
+            "86"
+          ],
+          [
+            "87"
+          ],
+          [
+            "88"
+          ],
+          [
+            "89"
+          ],
+          [
+            "90"
+          ],
+          [
+            "91"
+          ],
+          [
+            "92"
+          ],
+          [
+            "93"
+          ],
+          [
+            "94"
+          ],
+          [
+            "95"
+          ],
+          [
+            "96"
+          ],
+          [
+            "97"
+          ],
+          [
+            "98"
+          ],
+          [
+            "99"
+          ],
+          [
+            "100"
+          ]
+        ]
+      },
+      "sample": {
+        "mode": "sequential",
+        "n": ""
+      },
+      "files": {
+        "rows": []
+      },
+      "responses": {
+        "rows": [
+          [
+            "1",
+            "keypress",
+            "",
+            "left"
+          ],
+          [
+            "2",
+            "keypress",
+            "",
+            "right"
+          ]
+        ]
+      },
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "messageHandlers": {
+        "rows": [
+          [
+            {
+              "title": "Triplet Generation",
+              "message": "before:prepare",
+              "code": "// Define the list of words and the number of triplets to randomly\r\n// construct from the list for any given subject.\r\nconst nTriplets = 100;\r\nconst wordlist = [\r\n  \"adoration\",\r\n  \"affection\",\r\n  \"amazement\",\r\n  \"astonishment\",\r\n  \"compassion\",\r\n  \"contempt\",\r\n  \"despair\",\r\n  \"disappointment\",\r\n  \"disgust\",\r\n  \"dread\",\r\n  \"ecstasy\",\r\n  \"gladness\",\r\n  \"glee\",\r\n  \"gloom\",\r\n  \"grief\",\r\n  \"hopelessness\",\r\n  \"jolliness\",\r\n  \"misery\",\r\n  \"neglect\",\r\n  \"panic\",\r\n  \"pity\",\r\n  \"rage\",\r\n  \"rapture\",\r\n  \"revulsion\",\r\n  \"satisfaction\",\r\n  \"scorn\",\r\n  \"sentimentality\",\r\n  \"shame\",\r\n  \"woe\",\r\n  \"wrath\"\r\n];\r\n\r\n// Construct an array that is a sequence of numbers as long as the\r\n// word list\r\nconst wordindex = Array(wordlist.length);\r\nfor (let i = 0; i < wordlist.length; i++) {\r\n  wordindex[i] = i;\r\n}\r\n// Preallocate for the tripletIdList, which is used to enforce\r\n// uniqueness over the number of triplets.\r\nconst tripletIdList = Array(wordlist.length * 2);\r\n// Construct triplets by sampling\r\nfor (let i = 0; i < nTriplets; i++) {\r\n  let tripletIdA = this.random.sample(wordindex, 3);;\r\n  let tripletIdB = [];\r\n  let isDuplicated = true; // set as true to begin while loop\r\n  while (isDuplicated === true) {\r\n    isDuplicated = false; // set as false to prevent infinite loop\r\n                          // when i === 0 \r\n    tripletIdA = this.random.sample(wordindex, 3);\r\n    tripletIdB = [tripletIdA[0], tripletIdA[2], tripletIdA[1]];\r\n    for (let j = 0; j < i; j++) {\r\n      isDuplicated = tripletIdA.every(function(value, index) {\r\n        return value === tripletIdList[j][index]\r\n      });\r\n      if (isDuplicated === true) {\r\n        break;\r\n      }\r\n      isDuplicated = tripletIdB.every(function(value, index) {\r\n        return value === tripletIdList[j][index]\r\n      });\r\n      if (isDuplicated === true) {\r\n        break;\r\n      }\r\n    } // end inner for loop\r\n  } // end while loop\r\n  // Record the current tripletId array in the tripletIdList\r\n  tripletIdList[i] = tripletIdA;\r\n  \r\n  // Record the triplet in the loop template\r\n  this.options.templateParameters[i].cue  = wordlist[tripletIdA[0]];\r\n  this.options.templateParameters[i].opt1 = wordlist[tripletIdA[1]];\r\n  this.options.templateParameters[i].opt2 = wordlist[tripletIdA[2]];\r\n\r\n  // Record the tripletId in the loop template\r\n  this.options.templateParameters[i].cueId  = tripletIdA[0];\r\n  this.options.templateParameters[i].opt1Id = tripletIdA[1];\r\n  this.options.templateParameters[i].opt2Id = tripletIdA[2];\r\n} // end outter for loop"
+            }
+          ]
+        ]
+      },
+      "title": "Triplet Task Loop",
+      "_tab": "Scripts"
+    },
+    "12": {
+      "id": "12",
+      "type": "lab.html.Form",
+      "content": "<form>\n<header class=\"content-horizontal-center\">\n  <div class=\"w-l\">\n  <h1>Instructions</h1>\n  </div>\n</header>\n<main class=\"content-horizontal-center\" style=\"text-align: justify\">\n<div class=\"w-l\">\n<p>In this study, you will be asked to group words based on the similarity and relatedness of the concepts they refer to. On each trial, you will be presented with three words arranged in a triangle on the screen. The word at the top of the triangle is the <b>reference word</b>. The task is to pick the word that goes best with the reference word based on the meaning behind the words, feelings they evoke, or concepts they are associated with.</p>\n\n<p>Some trials will involve words where the choice feels obvious. On others, the choice may be unclear or feel strange. When in doubt, respond with your first impression. There are no right or wrong answers. If at any point you feel stuck, simply make a choice and move on.</p>\n</div>\n</main>\n\n<footer class=\"content-horizontal-right content-vertical-center\">\n  <button type=\"submit\">\n    Continue →\n  </button>\n</footer>\n</form>\n",
+      "scrollTop": true,
+      "files": {
+        "rows": []
+      },
+      "responses": {
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "messageHandlers": {
+        "rows": [
+          [
+            {
+              "title": "",
+              "message": "",
+              "code": ""
+            }
+          ]
+        ]
+      },
+      "title": "Instruction"
+    },
+    "15": {
+      "id": "15",
+      "type": "lab.flow.Sequence",
+      "children": [
+        "12",
+        "16",
+        "19",
+        "20"
+      ],
+      "files": {
+        "rows": []
+      },
+      "responses": {
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "messageHandlers": {
+        "rows": [
+          [
+            {
+              "title": "",
+              "message": "",
+              "code": ""
+            }
+          ]
+        ]
+      },
+      "title": "Introduction",
+      "_tab": "Scripts"
+    },
+    "16": {
+      "id": "16",
+      "type": "lab.html.Screen",
+      "files": {
+        "rows": []
+      },
+      "responses": {
+        "rows": [
+          [
+            "opt1",
+            "keypress",
+            "",
+            "j"
+          ],
+          [
+            "opt2",
+            "keypress",
+            "",
+            "k"
+          ]
+        ]
+      },
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "messageHandlers": {
+        "rows": [
+          [
+            {
+              "title": "",
+              "message": "",
+              "code": ""
+            }
+          ]
+        ]
+      },
+      "title": "Example 1",
+      "content": "<header class=\"content-horizontal-center\">\r\n  <div class=\"w-l\">\r\n    <h1>Example</h1>\r\n  </div>\r\n</header>\r\n<main class=\"content-horizontal-center\">\r\n  <div class=\"w-l\">\r\n    <p>Below is an example of what a trial will be like. This example illustrates that there are different ways for things to be similar to each other. Popcorn and salad are both foods while popcorn and tickets are both present in movie theaters. Whichever aspect of similarity comes to you first or seems most important should dictate your decision.\r\n    </p>\r\n    <p>Provide a response using <kbd>j</kbd> to select the option on the left or <kbd>k</kbd> to select the option on the right to proceed.</p>\r\n\r\n    <table class=\"table-plain\" style=\"font-size: x-large\">\r\n      <tr>\r\n        <td id=\"cue\" colspan=\"2\">POPCORN</td>\r\n      </tr>\r\n      <tr>\r\n        <td id=\"opt1\">SALAD</td>\r\n        <td id=\"opt2\">TICKETS</td>\r\n      </tr>\r\n    </table>\r\n  </div>\r\n</main>",
+      "_tab": "Content"
+    },
+    "18": {
+      "id": "18",
+      "type": "lab.html.Screen",
+      "files": {
+        "rows": []
+      },
+      "responses": {
+        "rows": [
+          [
+            "opt1",
+            "keypress",
+            "",
+            "j"
+          ],
+          [
+            "opt2",
+            "keypress",
+            "",
+            "k"
+          ]
+        ]
+      },
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "messageHandlers": {
+        "rows": [
+          [
+            {
+              "title": "",
+              "message": "",
+              "code": ""
+            }
+          ]
+        ]
+      },
+      "title": "Trial",
+      "content": "<main class=\"content-vertical-center content-horizontal-center\">\r\n\t<div class=\"w-l\">\r\n\t<table class=\"table-plain\" style=\"font-size: x-large\">\r\n\t\t<tr>\r\n\t\t\t<td id=\"cue\" colspan=\"2\">${ parameters.cue }</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td id=\"opt1\">${ parameters.opt1 }</td>\r\n\t\t\t<td id=\"opt2\">${ parameters.opt2 }</td>\r\n\t\t</tr>\r\n\t</table>\r\n\t</div>\r\n</main>\r\n<footer class=\"content-vertical-center content-horizontal-center\">\r\n\t<div class=\"w-l\">\r\n\t\t<table>\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>&larr;</th>\r\n\t\t\t\t\t<th>&rarr;</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<td><kbd>j</kbd></td>\r\n\t\t\t\t\t<td><kbd>k</kbd></td>\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t</div>\r\n</footer>",
+      "_tab": "Behavior"
+    },
+    "19": {
+      "id": "19",
+      "type": "lab.html.Screen",
+      "files": {
+        "rows": []
+      },
+      "responses": {
+        "rows": [
+          [
+            "opt2",
+            "keypress",
+            "",
+            "k"
+          ]
+        ]
+      },
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "messageHandlers": {
+        "rows": [
+          [
+            {
+              "title": "Show Warning on Error",
+              "message": "run",
+              "code": "document.addEventListener(\"keydown\", function (event) {\r\n\r\n  if (event.defaultPrevented) {\r\n    return; // Do nothing if the event was already processed\r\n  }\r\n\r\n  console.log(event.key);\r\n  switch (event.key) {\r\n    case \"j\":\r\n        let x = document.getElementById(\"wrong-answer\");\r\n        if (x.style.display === \"none\") {\r\n          x.style.display = \"block\";\r\n        }\r\n      break;\r\n    default:\r\n      console.log(event.key);\r\n      return; // Quit when this doesn't handle the key event.\r\n  }\r\n  // Cancel the default action to avoid it being handled twice\r\n  event.preventDefault();\r\n}, true);"
+            }
+          ]
+        ]
+      },
+      "title": "Example 2",
+      "content": "<header class=\"content-horizontal-center\">\r\n  <div class=\"w-l\">\r\n    <h1>Example</h1>\r\n  </div>\r\n</header>\r\n<main class=\"content-horizontal-center\">\r\n  <div class=\"w-l\">\r\n    <p>Here is another example trial to illustrate that we do not care about the similarity of the spelling or pronunciation of the words. CAP and CAT share many letters and sounds, but they refer to things that have little to do with one another.\r\n    </p>\r\n    <p>Provide a response using <kbd>j</kbd> to select the option on the left or <kbd>k</kbd> to select the option on the right to proceed.</p>\r\n\r\n    <table class=\"table-plain\" style=\"font-size: x-large\">\r\n      <tr>\r\n        <td id=\"cue\" colspan=\"2\">CAT</td>\r\n      </tr>\r\n      <tr>\r\n        <td id=\"opt1\">CAP</td>\r\n        <td id=\"opt2\">DOG</td>\r\n      </tr>\r\n    </table>\r\n    <div id=\"wrong-answer\" style=\"display: none;\" class=\"alert alert-danger\">\r\n      <p>Careful! Do not respond based on similarity in spelling. Instead, pick the option that goes best with the reference word based on its meaning, feelings evoked, or conceptual associations.</p>\r\n    </div>\r\n  </div>\r\n</main>",
+      "_tab": "Content",
+      "correctResponse": "opt2"
+    },
+    "20": {
+      "id": "20",
+      "type": "lab.html.Form",
+      "content": "<form>\n<header class=\"content-horizontal-center\">\n  <div class=\"w-l\">\n    <h1>Ready to begin?</h1>\n  </div>\n</header>\n\n<main class=\"content-horizontal-center\">\n  <div class=\"w-l\">\n    <p>We will now begin the experiment.</p>\n    <p>Press \"continue\" when you are ready to start.</p>\n  </div>\n</main> \n<footer class=\"content-horizontal-right content-vertical-center\">\n  <button type=\"submit\">Continue →</button>\n</footer>\n</form>",
+      "scrollTop": true,
+      "files": {
+        "rows": []
+      },
+      "responses": {
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "messageHandlers": {
+        "rows": [
+          [
+            {
+              "title": "",
+              "message": "",
+              "code": ""
+            }
+          ]
+        ]
+      },
+      "title": "Ready?"
+    },
+    "root": {
+      "id": "root",
+      "title": "root",
+      "type": "lab.flow.Sequence",
+      "children": [
+        "15",
+        "2"
+      ],
+      "parameters": {
+        "rows": [
+          [
+            {
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        ]
+      },
+      "plugins": [
+        {
+          "type": "lab.plugins.Metadata"
+        }
+      ],
+      "metadata": {
+        "title": "Emotion Words Study",
+        "description": "Measure similarity among emotion concepts in a 2AFC task.",
+        "repository": "",
+        "contributors": "Christopher R. Cox <chriscox@lsu.edu>"
+      }
+    }
+  },
+  "version": [
+    20,
+    1,
+    1
+  ],
+  "files": {
+    "files": {
+      "index.html": {
+        "content": "data:text/html,%3C!doctype%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22utf-8%22%3E%0A%20%20%3Ctitle%3EExperiment%3C%2Ftitle%3E%0A%20%20%3C!--%20viewport%20setup%20--%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1%22%3E%0A%20%20%3C!--%20lab.js%20library%20and%20experiment%20code%20--%3E%0A%20%20%24%7B%20header%20%7D%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%3C!--%20If%20you'd%20rather%20have%20a%20container%20with%20a%20fixed%20width%0A%20%20%20%20%20%20%20and%20variable%20height%2C%20try%20removing%20the%20fullscreen%20class%20below%20--%3E%0A%20%20%3Cdiv%20class%3D%22container%20fullscreen%22%20data-labjs-section%3D%22main%22%3E%0A%20%20%20%20%3Cmain%20class%3D%22content-vertical-center%20content-horizontal-center%22%3E%0A%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%3Ch2%3ELoading%20Experiment%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%3Cp%3EThe%20experiment%20is%20loading%20and%20should%20start%20in%20a%20few%20seconds%3C%2Fp%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fmain%3E%0A%20%20%3C%2Fdiv%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A",
+        "source": "library"
+      },
+      "style.css": {
+        "content": "data:text/css,%2F*%20Please%20define%20your%20custom%20styles%20here%20*%2F%0D%0A.slidecontainer%20%7B%0D%0A%20%20width%3A%20100%25%3B%0D%0A%7D%0D%0A%0D%0A.slider%20%7B%0D%0A%20%20-webkit-appearance%3A%20none%3B%0D%0A%20%20width%3A%20100%25%3B%0D%0A%20%20height%3A%2025px%3B%0D%0A%20%20background%3A%20%23d3d3d3%3B%0D%0A%20%20outline%3A%20none%3B%0D%0A%20%20opacity%3A%200.7%3B%0D%0A%20%20-webkit-transition%3A%20.2s%3B%0D%0A%20%20transition%3A%20opacity%20.2s%3B%0D%0A%7D%0D%0A%0D%0A.slider%3Ahover%20%7B%0D%0A%20%20opacity%3A%201%3B%0D%0A%7D%0D%0A%0D%0A.slider%3A%3A-webkit-slider-thumb%20%7B%0D%0A%20%20-webkit-appearance%3A%20none%3B%0D%0A%20%20appearance%3A%20none%3B%0D%0A%20%20width%3A%2025px%3B%0D%0A%20%20height%3A%2025px%3B%0D%0A%20%20background%3A%20%234CAF50%3B%0D%0A%20%20cursor%3A%20pointer%3B%0D%0A%7D%0D%0A%0D%0A.slider%3A%3A-moz-range-thumb%20%7B%0D%0A%20%20width%3A%2025px%3B%0D%0A%20%20height%3A%2025px%3B%0D%0A%20%20background%3A%20%234CAF50%3B%0D%0A%20%20cursor%3A%20pointer%3B%0D%0A%7D",
+        "source": "library"
+      }
+    },
+    "bundledFiles": {
+      "lib/lab.js": {
+        "type": "application/javascript"
+      },
+      "lib/lab.js.map": {
+        "type": "text/plain"
+      },
+      "lib/lab.fallback.js": {
+        "type": "application/javascript"
+      },
+      "lib/lab.legacy.js": {
+        "type": "application/javascript"
+      },
+      "lib/lab.legacy.js.map": {
+        "type": "text/plain"
+      },
+      "lib/lab.css": {
+        "type": "text/css"
+      },
+      "lib/loading.svg": {
+        "type": "image/svg+xml"
+      }
+    }
+  }
+}
