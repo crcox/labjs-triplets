@@ -1,4 +1,147 @@
 // Define study
+function load_json(fname) {
+  const response = await fetch(this.files['demo.json']);
+  return await response.json();
+}
+function load_csv(fname) {
+  const url = this.options.files[fname]
+  const csv2json = await new Promise((resolve, reject) => {
+    Papa.parse(url, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function(result) {
+        resolve(result.data);
+      }
+    })
+  })
+  console.log(csv2json)
+  return csv2json
+};
+function seq_along(x) {
+  const ind = Array(x.length);
+  for (let i = 0; i < x.length; i++) {
+    ind[i] = i;
+  }
+  return ind
+}
+function seq(start, stop) {
+  if (start < stop) {
+    x = Array(stop - start)
+    for (let i = 0; i < x.length; i++)
+      x[i] = i + start;
+  } else {
+    x = Array(start - stop)
+    for (let i = 0; i < x.length; i++)
+      x[i] = stop - i;
+  }
+  return x
+}
+function choose(n, k) {
+// source: https://stackoverflow.com/a/36345790/1277193
+	var nCk = 1;
+  for (let i = 0; i < k; i++) {
+    nCk = nCk * (n - i);
+    nCk = Math.floor(nCk / (i + 1));
+  }
+  return nCk
+}
+function index2combination(index, n, k) {
+// Yields the items of the single combination that would be at the provided
+// (0-based) index in a lexicographically sorted list of combinations of choices
+// of k items from n items [0,n), given the combinations were sorted in 
+// descending order. Yields in descending order.
+// source: https://stackoverflow.com/a/36345790/1277193
+  const out = Array(k);
+  var curIndex = choose(n, k);
+  var nCk = curIndex;
+  for (let i = k; i > 0; i--) {
+    nCk = nCk * i;
+    nCk = Math.floor(nCk / n);
+    while ((curIndex - nCk) > index) {
+      curIndex = curIndex - nCk;
+      nCk = nCk * (n - i);
+      nCk = nCk - (nCk % i);
+      n = n - 1;
+      nCk = Math.floor(nCk / n);
+    }
+    n = n - 1;
+    out[k - i] = n
+  }
+  return out
+}
+function combination2index(combination) {
+// Returns the (0-based) index the given combination would have if it were in
+// a reverse-lexicographically sorted list of combinations of choices of
+// len(combination) items from any possible number of items (given the
+// combination's length and maximum value)
+// - combination must already be in descending order,
+//   and it's items drawn from the set [0,n).
+    let result = 0;
+    for (let i = 0; i < combination.length; i++) {
+        let a = combination[i]:
+        result += choose(a, i + 1)
+    return result
+}
+function n_triplets(n) {
+  return n * choose(n - 1, 2);
+}
+function index2triplet(index, n) {
+  const out = Array(3);
+  N = choose(n - 1, 2);
+  out[0] = Math.floor(index / N);
+  tmp = index % N;
+  opts = index2combination(tmp, n, 2);
+  out[1] = opts[0] < out[0] ? opts[0] : opts[0] + 1;
+  out[2] = opts[1] < out[0] ? opts[1] : opts[1] + 1;
+  return out;
+}
+function getRandomSubarray(arr, size) {
+// This implements a partial sort because number of triplets >> sample size.
+// source: https://stackoverflow.com/a/11935263/1277193 
+    var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+    while (i-- > min) {
+        index = Math.floor((i + 1) * Math.random());
+        temp = shuffled[index];
+        shuffled[index] = shuffled[i];
+        shuffled[i] = temp;
+    }
+    return shuffled.slice(min);
+}
+function sample_triplets(x, n) {
+  const N = n_triplets(n)
+  var y = this.random.sample(wordindex, 3);
+  for (let i = 0; i < y.length; i++) {
+  }
+}
+// Preallocate for the tripletIdList, which is used to enforce
+// uniqueness over the number of triplets.
+const tripletIdList = Array(wordlist.length * 2);
+// Construct triplets by sampling
+for (let i = 0; i < nTriplets; i++) {
+  let tripletIdA = this.random.sample(wordindex, 3);;
+  let tripletIdB = [];
+  let isDuplicated = true; // set as true to begin while loop
+  while (isDuplicated === true) {
+    tripletIdA = this.random.sample(wordindex, 3);
+    tripletIdB = [tripletIdA[0], tripletIdA[2], tripletIdA[1]];
+    for (let j = 0; j < i; j++) {
+      isDuplicated = tripletIdA.every(function(value, index) {
+        return value === tripletIdList[j][index]
+      });
+      if (isDuplicated === true) {
+        break;
+      }
+      isDuplicated = tripletIdB.every(function(value, index) {
+        return value === tripletIdList[j][index]
+      });
+      if (isDuplicated === true) {
+        break;
+      }
+    } // end inner for loop
+  } // end while loop
+  // Record the current tripletId array in the tripletIdList
+  tripletIdList[i] = tripletIdA;
 const study = lab.util.fromObject({
   "title": "root",
   "type": "lab.flow.Sequence",
