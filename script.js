@@ -327,7 +327,7 @@ document.addEventListener("keydown", function (event) {
       },
       "parameters": {},
       "messageHandlers": {
-        "before:prepare": function anonymous()
+        "before:prepare": function anonymous() {}
       },
       "title": "Triplet Task Loop",
       "scrollTop": true,
