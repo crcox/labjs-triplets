@@ -1,4 +1,38 @@
 // Define study
+const nTriplets = 100;
+const wordlist = [
+  "insult",
+  "bliss",
+  "panic",
+  "caring",
+  "homesickness",
+  "envy",
+  "liking",
+  "regret",
+  "ecstasy",
+  "sympathy",
+  "horror",
+  "alarm",
+  "gloom",
+  "love",
+  "relief",
+  "hate",
+  "pity",
+  "surprise",
+  "joy",
+  "depression",
+  "outrage",
+  "terror",
+  "cheerfulness",
+  "unhappiness",
+  "amusement",
+  "rage",
+  "optimism",
+  "glumness",
+  "attraction",
+  "fear"
+]
+const validation_triplet_index = [38, 24, 123, 71, 216, 217, 485, 785, 564, 551, 554, 804, 976, 1148, 1077, 1039, 1105, 1062, 1246, 1390, 1373, 1287, 1384, 1610, 1630, 1796, 1665, 1861, 1894, 1918, 2183, 2086, 2098, 2169, 2092, 2320, 2481, 2445, 2471, 2581, 2601, 2682, 2888, 2996, 3015, 2883, 2926, 3116, 3266, 3422, 3406, 3463, 3635, 3495, 3846, 3728, 3965, 3971, 3926, 3975, 4387, 4235, 4416, 4281, 4409, 4465, 4817, 4844, 4539, 4674, 4694, 4789, 5130, 4924, 5230, 5039, 5191, 5220, 5278, 5285, 5605, 5420, 5342, 5592, 5992, 5889, 5953, 5911, 5958, 5983, 6100, 6200, 6144, 6254, 6274, 6338, 6528, 6567, 6592, 6827, 6881, 6550, 7280, 7233, 7046, 7069, 7294, 7108, 7309, 7461, 7339, 7378, 7492, 7577, 7759, 8094, 7734, 8031, 8115, 8063, 8136, 8259, 8449, 8502, 8484, 8439, 8581, 8780, 8699, 8613, 8814, 8771, 9026, 9286, 8982, 9003, 9092, 9253, 9445, 9552, 9422, 9401, 9731, 9738, 9751, 9978, 10072, 10126, 9786, 10087, 10362, 10273, 10484, 10513, 10443, 10499, 10585, 10625, 10664, 10591, 10740, 10827, 10967, 11084, 10982, 11246, 11143, 11357, 11448, 11464, 11616, 11738, 11689, 11768, 12031, 12106, 11888, 11875, 11878, 11944];
 function load_json(fname) {
   const response = await fetch(this.files['demo.json']);
   return await response.json();
@@ -49,24 +83,23 @@ function choose(n, k) {
 function index2combination(index, n, k) {
 // Yields the items of the single combination that would be at the provided
 // (0-based) index in a lexicographically sorted list of combinations of choices
-// of k items from n items [0,n), given the combinations were sorted in 
-// descending order. Yields in descending order.
+// of k items from n items [0,n). Yields in ascending order.
 // source: https://stackoverflow.com/a/36345790/1277193
   const out = Array(k);
-  var curIndex = choose(n, k);
-  var nCk = curIndex;
+  let curIndex = choose(n, k);
+  let nCk = curIndex;
   for (let i = k; i > 0; i--) {
     nCk = nCk * i;
     nCk = Math.floor(nCk / n);
     while ((curIndex - nCk) > index) {
       curIndex = curIndex - nCk;
-      nCk = nCk * (n - i);
-      nCk = nCk - (nCk % i);
-      n = n - 1;
+      nCk *= (n - i);
+      nCk -= (nCk % i);
+      n -= 1;
       nCk = Math.floor(nCk / n);
     }
     n = n - 1;
-    out[k - i] = n
+    out[i - 1] = n
   }
   return out
 }
@@ -75,31 +108,75 @@ function combination2index(combination) {
 // a reverse-lexicographically sorted list of combinations of choices of
 // len(combination) items from any possible number of items (given the
 // combination's length and maximum value)
-// - combination must already be in descending order,
-//   and it's items drawn from the set [0,n).
-    let result = 0;
-    for (let i = 0; i < combination.length; i++) {
-        let a = combination[i]:
-        result += choose(a, i + 1)
-    return result
+  let result = 0;
+  for (let i = 0; i < combination.length; i++) {
+    result += choose(combination[i], i + 1)
+  }
+  return result
 }
 function n_triplets(n) {
   return n * choose(n - 1, 2);
 }
 function index2triplet(index, n) {
-  const out = Array(3);
+  const triplet = Array(3);
   N = choose(n - 1, 2);
-  out[0] = Math.floor(index / N);
+  triplet[0] = Math.floor(index / N);
   tmp = index % N;
   opts = index2combination(tmp, n, 2);
-  out[1] = opts[0] < out[0] ? opts[0] : opts[0] + 1;
-  out[2] = opts[1] < out[0] ? opts[1] : opts[1] + 1;
-  return out;
+  triplet[1] = opts[0] < triplet[0] ? opts[0] : opts[0] + 1;
+  triplet[2] = opts[1] < triplet[0] ? opts[1] : opts[1] + 1;
+  return triplet;
+}
+function triplet2index(triplet, n) {
+// Triplet should be a reference index, followed pair of numbers corresponding
+// to a unique combination specified in ascending order. That is, for [ref,
+// opt1, opt2], opt1 < opt2.
+  const opts = Array(2);
+  const N = choose(n - 1, 2);
+  let index = triplet[0] * N;
+  opts[0] = triplet[1] > triplet[0] ? triplet[1] - 1 : triplet[1]
+  opts[1] = triplet[2] > triplet[0] ? triplet[2] - 1 : triplet[2]
+  index += combination2index(opts);
+  return index;
+}
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function sample_triplet_indexes(size, n, validation = null) {
+  let N = n_triplets(n);
+  if (N < size) {
+    size = N;
+    console.log("sample_triplets::warning: the requested sample size is larger than the total number of triplets. Returning population.")
+    return seq(0, N)
+  }
+  let k;
+  let sample;
+  if (validation) {
+  	k = validation.length;
+    sample = Array(size - validation.length).concat(validation);
+  } else {
+    k = 0;
+    sample = Array(size);
+  }
+  let index;
+  for (let i = (size - k - 1); i >= 0; i--) {
+    index = getRandomInt(0, N);
+    while (sample.includes(index, i)) {
+      index = getRandomInt(0, N);
+    }
+    sample[i] = index;
+  }
+  return(sample);
 }
 function getRandomSubarray(arr, size) {
 // This implements a partial sort because number of triplets >> sample size.
 // source: https://stackoverflow.com/a/11935263/1277193 
-    var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+    const shuffled = arr.slice(0);
+    let i = arr.length;
+    let min = i - size;
+    let temp, index;
     while (i-- > min) {
         index = Math.floor((i + 1) * Math.random());
         temp = shuffled[index];
@@ -108,40 +185,41 @@ function getRandomSubarray(arr, size) {
     }
     return shuffled.slice(min);
 }
-function sample_triplets(x, n) {
-  const N = n_triplets(n)
-  var y = this.random.sample(wordindex, 3);
-  for (let i = 0; i < y.length; i++) {
-  }
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
-// Preallocate for the tripletIdList, which is used to enforce
-// uniqueness over the number of triplets.
-const tripletIdList = Array(wordlist.length * 2);
-// Construct triplets by sampling
-for (let i = 0; i < nTriplets; i++) {
-  let tripletIdA = this.random.sample(wordindex, 3);;
-  let tripletIdB = [];
-  let isDuplicated = true; // set as true to begin while loop
-  while (isDuplicated === true) {
-    tripletIdA = this.random.sample(wordindex, 3);
-    tripletIdB = [tripletIdA[0], tripletIdA[2], tripletIdA[1]];
-    for (let j = 0; j < i; j++) {
-      isDuplicated = tripletIdA.every(function(value, index) {
-        return value === tripletIdList[j][index]
-      });
-      if (isDuplicated === true) {
-        break;
-      }
-      isDuplicated = tripletIdB.every(function(value, index) {
-        return value === tripletIdList[j][index]
-      });
-      if (isDuplicated === true) {
-        break;
-      }
-    } // end inner for loop
-  } // end while loop
-  // Record the current tripletId array in the tripletIdList
-  tripletIdList[i] = tripletIdA;
+function makeLoopTemplate(index, wordlist, nvalidation) {
+    const size = index.length;
+    const nexp = size - nvalidation;
+    const n = wordlist.length;
+    const X = Array(size);
+    for (let i = 0; i < size; i++) {
+        let triplet = index2triplet(index[i], n);
+        if (Math.random > 0.5) {
+            [triplet[1], triplet[2]] = [array[2], array[1]];
+        }
+        X[i] = {
+            trialId: i,
+            cueId: triplet[0],
+            opt1Id: triplet[1],
+            opt2Id: triplet[2],
+            cue: wordlist[triplet[0]],
+            opt1: wordlist[triplet[1]],
+            opt2: wordlist[triplet[2]],
+            cond: i < nexp ? "exp" : "val"
+        }
+    }
+    return X
+}
+const total_size = 150;
+const nvalidation = 30;
+exp_triplet_index = sample_triplet_indexes(total_size, wordlist.length, getRandomSubarray(validation_triplet_index, nvalidation));
+exp_loop_template = shuffle(makeLoopTemplate(exp_triplet_index, wordlist, nvalidation));
+
 const study = lab.util.fromObject({
   "title": "root",
   "type": "lab.flow.Sequence",
@@ -256,308 +334,7 @@ document.addEventListener("keydown", function (event) {
     },
     {
       "type": "lab.flow.Loop",
-      "templateParameters": [
-        {
-          "trialId": "1"
-        },
-        {
-          "trialId": "2"
-        },
-        {
-          "trialId": "3"
-        },
-        {
-          "trialId": "4"
-        },
-        {
-          "trialId": "5"
-        },
-        {
-          "trialId": "6"
-        },
-        {
-          "trialId": "7"
-        },
-        {
-          "trialId": "8"
-        },
-        {
-          "trialId": "9"
-        },
-        {
-          "trialId": "10"
-        },
-        {
-          "trialId": "11"
-        },
-        {
-          "trialId": "12"
-        },
-        {
-          "trialId": "13"
-        },
-        {
-          "trialId": "14"
-        },
-        {
-          "trialId": "15"
-        },
-        {
-          "trialId": "16"
-        },
-        {
-          "trialId": "17"
-        },
-        {
-          "trialId": "18"
-        },
-        {
-          "trialId": "19"
-        },
-        {
-          "trialId": "20"
-        },
-        {
-          "trialId": "21"
-        },
-        {
-          "trialId": "22"
-        },
-        {
-          "trialId": "23"
-        },
-        {
-          "trialId": "24"
-        },
-        {
-          "trialId": "25"
-        },
-        {
-          "trialId": "26"
-        },
-        {
-          "trialId": "27"
-        },
-        {
-          "trialId": "28"
-        },
-        {
-          "trialId": "29"
-        },
-        {
-          "trialId": "30"
-        },
-        {
-          "trialId": "31"
-        },
-        {
-          "trialId": "32"
-        },
-        {
-          "trialId": "33"
-        },
-        {
-          "trialId": "34"
-        },
-        {
-          "trialId": "35"
-        },
-        {
-          "trialId": "36"
-        },
-        {
-          "trialId": "37"
-        },
-        {
-          "trialId": "38"
-        },
-        {
-          "trialId": "39"
-        },
-        {
-          "trialId": "40"
-        },
-        {
-          "trialId": "41"
-        },
-        {
-          "trialId": "42"
-        },
-        {
-          "trialId": "43"
-        },
-        {
-          "trialId": "44"
-        },
-        {
-          "trialId": "45"
-        },
-        {
-          "trialId": "46"
-        },
-        {
-          "trialId": "47"
-        },
-        {
-          "trialId": "48"
-        },
-        {
-          "trialId": "49"
-        },
-        {
-          "trialId": "50"
-        },
-        {
-          "trialId": "51"
-        },
-        {
-          "trialId": "52"
-        },
-        {
-          "trialId": "53"
-        },
-        {
-          "trialId": "54"
-        },
-        {
-          "trialId": "55"
-        },
-        {
-          "trialId": "56"
-        },
-        {
-          "trialId": "57"
-        },
-        {
-          "trialId": "58"
-        },
-        {
-          "trialId": "59"
-        },
-        {
-          "trialId": "60"
-        },
-        {
-          "trialId": "61"
-        },
-        {
-          "trialId": "62"
-        },
-        {
-          "trialId": "63"
-        },
-        {
-          "trialId": "64"
-        },
-        {
-          "trialId": "65"
-        },
-        {
-          "trialId": "66"
-        },
-        {
-          "trialId": "67"
-        },
-        {
-          "trialId": "68"
-        },
-        {
-          "trialId": "69"
-        },
-        {
-          "trialId": "70"
-        },
-        {
-          "trialId": "71"
-        },
-        {
-          "trialId": "72"
-        },
-        {
-          "trialId": "73"
-        },
-        {
-          "trialId": "74"
-        },
-        {
-          "trialId": "75"
-        },
-        {
-          "trialId": "76"
-        },
-        {
-          "trialId": "77"
-        },
-        {
-          "trialId": "78"
-        },
-        {
-          "trialId": "79"
-        },
-        {
-          "trialId": "80"
-        },
-        {
-          "trialId": "81"
-        },
-        {
-          "trialId": "82"
-        },
-        {
-          "trialId": "83"
-        },
-        {
-          "trialId": "84"
-        },
-        {
-          "trialId": "85"
-        },
-        {
-          "trialId": "86"
-        },
-        {
-          "trialId": "87"
-        },
-        {
-          "trialId": "88"
-        },
-        {
-          "trialId": "89"
-        },
-        {
-          "trialId": "90"
-        },
-        {
-          "trialId": "91"
-        },
-        {
-          "trialId": "92"
-        },
-        {
-          "trialId": "93"
-        },
-        {
-          "trialId": "94"
-        },
-        {
-          "trialId": "95"
-        },
-        {
-          "trialId": "96"
-        },
-        {
-          "trialId": "97"
-        },
-        {
-          "trialId": "98"
-        },
-        {
-          "trialId": "99"
-        },
-        {
-          "trialId": "100"
-        }
-      ],
+      "templateParameters": exp_loop_template,
       "sample": {
         "mode": "sequential",
         "n": ""
@@ -569,92 +346,7 @@ document.addEventListener("keydown", function (event) {
       },
       "parameters": {},
       "messageHandlers": {
-        "before:prepare": function anonymous(
-) {
-// Define the list of words and the number of triplets to randomly
-// construct from the list for any given subject.
-const nTriplets = 100;
-const wordlist = [
-  "adoration",
-  "affection",
-  "amazement",
-  "astonishment",
-  "compassion",
-  "contempt",
-  "despair",
-  "disappointment",
-  "disgust",
-  "dread",
-  "ecstasy",
-  "gladness",
-  "glee",
-  "gloom",
-  "grief",
-  "hopelessness",
-  "jolliness",
-  "misery",
-  "neglect",
-  "panic",
-  "pity",
-  "rage",
-  "rapture",
-  "revulsion",
-  "satisfaction",
-  "scorn",
-  "sentimentality",
-  "shame",
-  "woe",
-  "wrath"
-];
-
-// Construct an array that is a sequence of numbers as long as the
-// word list
-const wordindex = Array(wordlist.length);
-for (let i = 0; i < wordlist.length; i++) {
-  wordindex[i] = i;
-}
-// Preallocate for the tripletIdList, which is used to enforce
-// uniqueness over the number of triplets.
-const tripletIdList = Array(wordlist.length * 2);
-// Construct triplets by sampling
-for (let i = 0; i < nTriplets; i++) {
-  let tripletIdA = this.random.sample(wordindex, 3);;
-  let tripletIdB = [];
-  let isDuplicated = true; // set as true to begin while loop
-  while (isDuplicated === true) {
-    isDuplicated = false; // set as false to prevent infinite loop
-                          // when i === 0 
-    tripletIdA = this.random.sample(wordindex, 3);
-    tripletIdB = [tripletIdA[0], tripletIdA[2], tripletIdA[1]];
-    for (let j = 0; j < i; j++) {
-      isDuplicated = tripletIdA.every(function(value, index) {
-        return value === tripletIdList[j][index]
-      });
-      if (isDuplicated === true) {
-        break;
-      }
-      isDuplicated = tripletIdB.every(function(value, index) {
-        return value === tripletIdList[j][index]
-      });
-      if (isDuplicated === true) {
-        break;
-      }
-    } // end inner for loop
-  } // end while loop
-  // Record the current tripletId array in the tripletIdList
-  tripletIdList[i] = tripletIdA;
-  
-  // Record the triplet in the loop template
-  this.options.templateParameters[i].cue  = wordlist[tripletIdA[0]];
-  this.options.templateParameters[i].opt1 = wordlist[tripletIdA[1]];
-  this.options.templateParameters[i].opt2 = wordlist[tripletIdA[2]];
-
-  // Record the tripletId in the loop template
-  this.options.templateParameters[i].cueId  = tripletIdA[0];
-  this.options.templateParameters[i].opt1Id = tripletIdA[1];
-  this.options.templateParameters[i].opt2Id = tripletIdA[2];
-} // end outter for loop
-}
+        "before:prepare": function anonymous()
       },
       "title": "Triplet Task Loop",
       "scrollTop": true,
