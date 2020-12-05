@@ -329,7 +329,7 @@ document.addEventListener("keydown", function (event) {
       "messageHandlers": {
         "end": function anonymous() {
           const ds = this.options.datastore
-          const columns = ["trialId","cueId","opt1Id","opt2Id","cond","response","response_action"],
+          const columns = ["trialId","cueId","opt1Id","opt2Id","cond","response","response_action"]
           const filterRow = (row) => {
             return Object.keys(row)
               .filter(column => columns.includes(column))
