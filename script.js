@@ -1,5 +1,4 @@
 // Define study
-const nTriplets = 100;
 const wordlist = [
   "insult",
   "bliss",
@@ -167,6 +166,7 @@ function getRandomSubarray(arr, size) {
     return shuffled.slice(min);
 }
 function shuffle(array) {
+    // https://javascript.info/task/shuffle
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -327,7 +327,19 @@ document.addEventListener("keydown", function (event) {
       },
       "parameters": {},
       "messageHandlers": {
-        "before:prepare": function anonymous() {}
+        "end": function anonymous() {
+          const ds = this.options.datastore
+          const columns = ["trialId","cueId","opt1Id","opt2Id","cond","response","response_action"],
+          const filterRow = (row) => {
+            return Object.keys(row)
+              .filter(column => columns.includes(column))
+              .reduce((output, column) => {
+                output[column] = row[column];
+                return output;
+              }, {})
+          }
+          ds.data = ds.data.map(filterRow)
+        }
       },
       "title": "Triplet Task Loop",
       "scrollTop": true,
